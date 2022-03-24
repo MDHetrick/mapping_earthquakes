@@ -107,15 +107,28 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
 
   // Then we add the earthquake layer to our map.
   allEarthquakes.addTo(map);
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 // 3. Retrieve the major earthquake GeoJSON data >4.5 mag for the week.
-d3.json().then(function(data) {
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson").then(function(data) {
 
 // 4. Use the same style as the earthquake data.
+L.geoJson(data, {
+  // We turn each feature into a circleMarker on the map.
+  pointToLayer: function(feature, latlng) {
+      return L.circleMarker(latlng);
+    },
+  // We set the style for each circleMarker using our styleInfo function.
+style: styleInfoMajor,
+ // We create a popup for each circleMarker to display the magnitude and location of the earthquake
+ //  after the marker has been created and styled.
+ onEachFeature: function(feature, layer) {
+  layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
+}
+}).addTo(majorEarthquakes); 
 
-
-// 5. Change the color function to use three colors for the major earthquakes based on the magnitude of the earthquake.
-
+// 
 
 // 6. Use the function that determines the radius of the earthquake marker based on its magnitude.
 
