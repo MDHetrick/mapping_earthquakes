@@ -163,12 +163,13 @@ legend.onAdd = function() {
   d3.json(plateUrl).then(function(data) {
     L.geoJson(data, {
       weight:4,
-      color: "#ea2c2c"
+      color: "rgb(255,60,0)" //"#d80000"
     }).addTo(plateData);
  // Next, add the tectonic layer group variable to the map, i.e, tectonicPlates.addTo(map).
 
   });
 });
+plateData.addTo(map)
 
 // 3. Retrieve the major earthquake GeoJSON data >4.5 mag for the week.
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson").then(function(data) {
@@ -176,32 +177,23 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geoj
 // 4. Use the same style as the earthquake data.
 function fillColor(magnitude) {
   if (magnitude > 6) {
-    return "#FE3003"
+    return "rgb(200,20,38)"
   }
   if (magnitude > 5) {
-    return "#FE9B03";
+    return "rgb(186,80,20)";
   }
-    return "#FEFA03";
+    return "rgb(240,145,36)";
   }
 
-  function getColor(magnitude) {
-    if (magnitude > 6) {
-      return "#641E16"
-    }
-    if (magnitude > 5) {
-      return "#6E2C00";
-    }
-      return "#7D6608";
-    }
 
   function getRadius(magnitude) {
     if (magnitude > 6) {
-      return magnitude * 12
+      return magnitude * 11
     }
     if (magnitude > 5) {
-      return magnitude * 10;
-    }
       return magnitude * 8;
+    }
+      return magnitude * 5;
     }
   
   function styleInfo(feature) {
@@ -209,10 +201,10 @@ function fillColor(magnitude) {
       opacity: 1,
       fillOpacity: 0.7,
       fillColor: fillColor(feature.properties.mag),
-      color: getColor(feature.properties.mag),
+      color: "black", 
       radius: getRadius(feature.properties.mag),
       stroke: true,
-      weight: 0.9
+      weight: 1.2
     };
   };
   L.geoJson(data, {
@@ -227,3 +219,5 @@ function fillColor(magnitude) {
     layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
 }
 }).addTo(majorEarthquakes);})
+
+majorEarthquakes.addTo(map)
