@@ -124,8 +124,6 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
   // Then we add the earthquake layer to our map.
   allEarthquakes.addTo(map);
 
-
-
   // Here we create a legend control object.
 let legend = L.control({
   position: "bottomright"
@@ -163,10 +161,8 @@ legend.onAdd = function() {
   d3.json(plateUrl).then(function(data) {
     L.geoJson(data, {
       weight:4,
-      color: "rgb(255,60,0)" //"#d80000"
+      color: "rgb(255,60,0)" 
     }).addTo(plateData);
- // Next, add the tectonic layer group variable to the map, i.e, tectonicPlates.addTo(map).
-
   });
 });
 plateData.addTo(map)
@@ -184,7 +180,6 @@ function fillColor(magnitude) {
   }
     return "rgb(240,145,36)";
   }
-
 
   function getRadius(magnitude) {
     if (magnitude > 6) {
