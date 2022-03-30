@@ -160,7 +160,7 @@ legend.onAdd = function() {
   
   d3.json(plateUrl).then(function(data) {
     L.geoJson(data, {
-      weight:4,
+      weight:5,
       color: "rgb(255,60,0)" 
     }).addTo(plateData);
   });
